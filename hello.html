@@ -1,7 +1,39 @@
 <html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      #progressBar {
+        width: 0%;
+        height: 20px;
+        background-color: #4CAF50;
+        text-align: center;
+        line-height: 20px;
+        color: white;
+        transition: width 0.3s ease-in-out;
+      }
+      #progressBarContainer {
+        width: 100%;
+        background-color: #f0f0f0;
+        margin-bottom: 20px;
+      }
+      .chunk {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
   <body>
     <h1>Hello Extensions</h1>
-    <script src="popup.js"></script>
     <div id="operationStatus"></div>
+    <div id="progressBarContainer">
+      <div id="progressBar">0%</div>
+    </div>
+    <main></main>
+    <script src="index.js" type="module"></script>
   </body>
 </html>
