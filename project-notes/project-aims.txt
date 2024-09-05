@@ -1,0 +1,128 @@
+Project Document Outline: First Iteration
+
+Priniples: 
+local - it can work offline
+privacy - it doesn't track the user
+fast - it can work in real time
+accessible - it can be used by anyone, and is easy to implement
+
+Vision:
+Our mission is to empower neurodivergent individuals by enhancing their ability to comprehend web content more efficiently and effectively. We aim to make new information and critical thinking more accessible, with the ultimate goal of fostering intellectual growth and innovation. We firmly believe that technology can be leveraged to help individuals prioritize information, develop critical thinking skills, and generate novel ideas grounded in factual knowledge.
+
+user profile:
+I am neurodivergent (ADHD, dyslexia, narcolepsy)
+I have a hard time reading and understanding web pages.
+I use text to speech to read the web pages.
+Though I am tech savvy, I am not a professional coder.
+I want to share my ideas with the world.
+I want to be competent and insightful.
+I want to think critically and develop my ideas.
+
+1. Project Overview
+   - Project Title: Natural Language Search and Highlighting for Web Articles
+   - Goal: 
+     - Develop a Chrome extension that allows users to generate embeddings for a given web article, cache them locally, and ask questions about the article. The system will find relevant chunks based on the question and highlight them directly in the DOM of the web page.
+   - Scope:
+     - Cache embeddings locally for individual articles.
+     - Enable question-based searching for relevant text chunks within the article.
+     - Highlight relevant chunks in the DOM of the current web page.
+
+2. Tech Stack
+
+Frontend (UI) and Interaction:
+   - JavaScript/TypeScript:
+     - Purpose: Handle user interactions, manage the caching of embeddings, and execute the search and highlighting functionality in the DOM.
+   - Tailwind CSS:
+     - Purpose: If needed, style any UI components or the highlights within the web page.
+   - Chrome Extension API:
+     - Purpose: Access and manipulate the DOM, manage background processes, and store cached embeddings using Chrome's local storage.
+
+Backend / Data Processing:
+   - Python:
+     - Purpose: Run locally to generate embeddings for the article when requested.
+     - Tools: Python for managing the embedding generation and processing.
+   - FastAPI:
+     - Purpose: Serve as a lightweight local API to interact with the frontend. This API will be used to generate embeddings when a user requests it.
+   - SentenceTransformers:
+     - Purpose: Generate embeddings for text chunks from the article.
+     - Tools: SentenceTransformers library, using a model like all-MiniLM-L6-v2.
+
+LLM and Embedding Generation:
+   - Transformers by Hugging Face:
+     - Purpose: Provide the LLM for generating question-based searches.
+     - Tools: Hugging Face's Transformers library, using a small model suitable for local execution.
+
+Local Storage:
+   - Chrome Local Storage:
+     - Purpose: Store the generated embeddings and metadata for each article locally within the user's browser.
+     - Tools: Chrome's local storage API for caching and retrieval.
+
+3. Functional Requirements
+
+- Embedding Generation:
+  - Allow users to trigger embedding generation for an article they are viewing.
+  - Automatically chunk the article into segments (e.g., 500 characters) with a 10% overlap.
+  - Cache the embeddings locally in the browser using Chrome's local storage.
+
+- Question-Based Search:
+  - Allow users to input a natural language question about the article.
+  - Generate an embedding for the question and compare it to the cached embeddings to find the most relevant chunks.
+
+- Highlighting in the DOM:
+  - Highlight the relevant chunks directly in the article's DOM based on the search results.
+  - Ensure the highlights are visible and do not interfere with the existing page layout.
+
+4. Non-Functional Requirements
+
+- Performance:
+  - Ensure that generating embeddings and searching for relevant chunks is completed quickly enough not to interrupt the user experience.
+  - Optimize local storage usage and ensure that retrieving and comparing embeddings is efficient.
+
+- Usability:
+  - The Chrome extension should have a minimal interface, requiring only basic user interaction to trigger embedding generation and search.
+  - Highlights in the DOM should be clear and intuitive, enhancing readability without overwhelming the user.
+
+- Data Security:
+  - All data (embeddings and metadata) should be stored locally, ensuring user privacy.
+  - No data should be transmitted to external servers.
+
+5. Project Milestones
+
+- Milestone 1: Set up development environment
+  - Install and configure Python, FastAPI, and necessary libraries.
+  - Set up the basic Chrome extension with JavaScript/TypeScript and Tailwind CSS.
+
+- Milestone 2: Embedding Generation and Caching
+  - Develop FastAPI endpoints for embedding generation.
+  - Implement chunking of the article and generation of embeddings using SentenceTransformers.
+  - Cache the generated embeddings in Chrome's local storage.
+
+- Milestone 3: Question-Based Search and Highlighting
+  - Implement the search functionality that allows users to input a question and find relevant chunks.
+  - Develop the DOM manipulation logic to highlight relevant chunks in the article.
+
+- Milestone 4: Integration and Testing
+  - Integrate the embedding generation, caching, and search functions.
+  - Test the extension across different websites to ensure robust performance and compatibility.
+
+- Milestone 5: Optimization and Finalization
+  - Optimize the caching mechanism and DOM manipulation logic.
+  - Finalize the UI/UX and ensure the extension operates smoothly.
+
+6. Risks and Mitigation
+
+- DOM Manipulation Challenges:
+  - Risk: The extension might face issues with accurately highlighting text in complex or dynamically loaded web pages.
+  - Mitigation: Implement robust DOM traversal and manipulation logic, test across various websites, and include a fallback mechanism if highlighting fails.
+
+- Storage Limitations:
+  - Risk: Chrome's local storage might run into limits if many articles are cached.
+  - Mitigation: Implement efficient storage management, possibly including a mechanism to clear or compress old data.
+
+- Performance:
+  - Risk: Generating embeddings locally might slow down the user experience.
+  - Mitigation: Optimize the embedding generation process and ensure that it runs in the background without interrupting user activities.
+
+7. Conclusion
+
+This first iteration focuses on building a functional Chrome extension that allows for local embedding generation, question-based searches, and real-time highlighting of relevant text chunks in web articles. By caching embeddings locally, the system is designed to provide a quick and efficient search experience while maintaining user privacy. The outlined tech stack and milestones offer a clear path to developing and deploying this tool in a way that is both user-friendly and effective.
